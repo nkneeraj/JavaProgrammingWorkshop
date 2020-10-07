@@ -36,7 +36,7 @@ public class TicTacToe {
 
 	// UC2
 	public static char playerMark() {
-		System.out.println("Choose player option from 'X' & 'O'");
+		System.out.println("Enter player mark from 'X' & 'O'");
 		String player = sc.next();
 		char playerMark = player.charAt(0);
 		return playerMark;
@@ -51,10 +51,11 @@ public class TicTacToe {
 		}
 	}
 
+	//UC4
 	public static int userMove(int position) {
 		
-		if(position <1 && position >9 && gameBoard[position]!=' ' 
-				&&gameBoard[position]!=computerMark)
+		if(position <1 || position >9 || gameBoard[position]!=' ' 
+				|| gameBoard[position]!=computerMark)
 		{
 			System.out.println("Invalid position, enter again ");
 			position = sc.nextInt();
