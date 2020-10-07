@@ -104,16 +104,30 @@ public class TicTacToe {
 		{
 			System.out.println("Player Win");
 		}
-		else if(gameBoard[1]==gameBoard[2] && gameBoard[1]==gameBoard[3] && gameBoard[1] != ' '
-				|| gameBoard[4]==gameBoard[5] && gameBoard[4]==gameBoard[6] && gameBoard[4] != ' '
-				|| gameBoard[7]==gameBoard[8] && gameBoard[7]==gameBoard[9] && gameBoard[7] != ' '
-				|| gameBoard[1]==gameBoard[4] && gameBoard[1]==gameBoard[7] && gameBoard[1] != ' '
-				|| gameBoard[2]==gameBoard[5] && gameBoard[2]==gameBoard[8] && gameBoard[2] != ' '
-				|| gameBoard[3]==gameBoard[6] && gameBoard[9]==gameBoard[3] && gameBoard[3] != ' '
-				|| gameBoard[1]==gameBoard[5] && gameBoard[1]==gameBoard[9] && gameBoard[1] != ' '
-				|| gameBoard[3]==gameBoard[5] && gameBoard[9]==gameBoard[3] && gameBoard[3] != ' ')
+		else if(gameBoard[1]!=' '
+				&& gameBoard[2]!=' '
+				&& gameBoard[3]!=' '
+				&& gameBoard[4]!=' '
+				&& gameBoard[5]!=' '
+				&& gameBoard[6]!=' '
+				&& gameBoard[7]!=' '
+				&& gameBoard[8]!=' '
+				&& gameBoard[9]!=' ')
 		{
 			System.out.println("Tie");
+		}
+//		else if( gameBoard[1]==' '
+//				|| gameBoard[2]==' '
+//				|| gameBoard[3]==' '
+//				|| gameBoard[4]==' '
+//				|| gameBoard[5]==' '
+//				|| gameBoard[6]==' '
+//				|| gameBoard[7]==' '
+//				|| gameBoard[8]==' '
+//				|| gameBoard[9]==' ')
+		else
+		{
+			System.out.println("Change turn");
 		}
 	}
 }
