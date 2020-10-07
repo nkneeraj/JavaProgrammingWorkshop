@@ -43,9 +43,9 @@ public class TicTacToe {
 	public static void showBoard(char[] gameBoard)
 	{
 		System.out.println("ShowBoard");
-		for(int i =1;i<=(gameBoard.length)/3;i++)
+		for(int i =0;i<(gameBoard.length)/3;i++)
 		{
-			System.out.println("Line: " +i+ "|" +gameBoard[i]+ gameBoard[i+1] + gameBoard[i+2]+ "|");
+			System.out.println("Line:" +(i+1)+ ": "  +gameBoard[i*3]+ "|" + gameBoard[3*i+1] + "|" + gameBoard[3*i+2]);
 		}
 	}
 }
