@@ -8,6 +8,7 @@ public class TicTacToe {
 	private static char playerMark;
 	private static char computerMark;
 	private static char[] gameBoard;
+	private static int position;
 
 	// master
 	public static void main(String[] args) {
@@ -20,12 +21,12 @@ public class TicTacToe {
 //		computerMark = (playerMark == 'X') ? 'O' : 'X';
 //		System.out.println("Player Mark: " + playerMark);
 //		System.out.println("Computer mark: " + computerMark);
+		
 		showBoard(gameBoard);
-		int position;
-		System.out.println("Enter the pos for user move");
-		position = sc.nextInt();
-		userMove(position);
-		toss();
+
+//		position = sc.nextInt();
+//		userMove(position);
+		
 	}
 
 	// UC1
@@ -55,8 +56,7 @@ public class TicTacToe {
 	}
 
 	// UC4 & UC5
-	public static void userMove(int position) {
-
+	public static void userMove(int pos) {
 		if (position < 1 && position > 9 && gameBoard[position] != ' ') {
 			System.out.println("Invalid position, enter again ");
 			position = sc.nextInt();
@@ -65,18 +65,20 @@ public class TicTacToe {
 			gameBoard[position] = playerMark;
 			System.out.println("valid user position");
 			showBoard(gameBoard);
+			win();
 		}
 //		return position;
 	}
-
+	
+	//UC6
 	public static void toss() {
-		int random = (Math.random() <= 0.5) ? 1 : 2;
-		
+
+		int random = (Math.random() <= 0.5) ? 1 : 2;		
 		if(random==1)
 		{
 			System.out.println("Computer Start");
-			computerMark = (Math.random() <= 0.5) ? 'X' : 'O';
-			playerMark =   (computerMark == 'X') ? 'O' : 'X';
+			playerMark =  playerMark();
+			computerMark = (playerMark == 'X') ? 'O' : 'X';
 		}
 		else
 		{
@@ -86,5 +88,32 @@ public class TicTacToe {
 		}
 		System.out.println("Player Mark: " + playerMark);
 		System.out.println("Computer mark: " + computerMark);
+	}
+	
+	//UC7 Win
+	public static void win()
+	{
+		if(gameBoard[1]==gameBoard[2] && gameBoard[1]==gameBoard[3] && gameBoard[1] == playerMark
+				|| gameBoard[4]==gameBoard[5] && gameBoard[4]==gameBoard[6] && gameBoard[4] == playerMark
+				|| gameBoard[7]==gameBoard[8] && gameBoard[7]==gameBoard[9] && gameBoard[7] == playerMark
+				|| gameBoard[1]==gameBoard[4] && gameBoard[1]==gameBoard[7] && gameBoard[1] == playerMark
+				|| gameBoard[2]==gameBoard[5] && gameBoard[2]==gameBoard[8] && gameBoard[2] == playerMark
+				|| gameBoard[3]==gameBoard[6] && gameBoard[9]==gameBoard[3] && gameBoard[3] == playerMark
+				|| gameBoard[1]==gameBoard[5] && gameBoard[1]==gameBoard[9] && gameBoard[1] == playerMark
+				|| gameBoard[3]==gameBoard[5] && gameBoard[9]==gameBoard[3] && gameBoard[3] == playerMark)
+		{
+			System.out.println("Player Win");
+		}
+		else if(gameBoard[1]==gameBoard[2] && gameBoard[1]==gameBoard[3] && gameBoard[1] != ' '
+				|| gameBoard[4]==gameBoard[5] && gameBoard[4]==gameBoard[6] && gameBoard[4] != ' '
+				|| gameBoard[7]==gameBoard[8] && gameBoard[7]==gameBoard[9] && gameBoard[7] != ' '
+				|| gameBoard[1]==gameBoard[4] && gameBoard[1]==gameBoard[7] && gameBoard[1] != ' '
+				|| gameBoard[2]==gameBoard[5] && gameBoard[2]==gameBoard[8] && gameBoard[2] != ' '
+				|| gameBoard[3]==gameBoard[6] && gameBoard[9]==gameBoard[3] && gameBoard[3] != ' '
+				|| gameBoard[1]==gameBoard[5] && gameBoard[1]==gameBoard[9] && gameBoard[1] != ' '
+				|| gameBoard[3]==gameBoard[5] && gameBoard[9]==gameBoard[3] && gameBoard[3] != ' ')
+		{
+			System.out.println("Tie");
+		}
 	}
 }
