@@ -146,4 +146,19 @@ public class TicTacToe {
 		}
 		return position;
 	}
+
+	// UC10 take corners
+	public static int cornerPosition() {
+		if (winPosition(playerMark) == 0 && winPosition(computerMark) == 0) {
+			if (gameBoard[1] == ' ')
+				return (int) 1;
+			else if (gameBoard[3] == ' ')
+				return (int) 3;
+			else if (gameBoard[7] == ' ')
+				return (int) 7;
+			else if (gameBoard[9] == ' ')
+				return (int) 9;
+		}
+		return 0;
+	}
 }
