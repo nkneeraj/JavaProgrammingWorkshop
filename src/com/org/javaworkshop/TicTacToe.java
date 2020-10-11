@@ -105,61 +105,7 @@ public class TicTacToe {
 
 	// UC8 Computer Move
 	public static void computerMove() {
-		int position = 0;
-		for (int i = 1; i < gameBoard.length && gameBoard[i] == ' '; i++) {
-			if (i == 1) {
-				if ((gameBoard[2] == computerMark && gameBoard[3] == computerMark)
-						|| (gameBoard[4] == computerMark && gameBoard[7] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[9] == computerMark))
-					position = i;
-			}
-			if (i == 2) {
-				if ((gameBoard[1] == computerMark && gameBoard[3] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[8] == computerMark))
-					position = i;
-			}
-			if (i == 3) {
-				if ((gameBoard[2] == computerMark && gameBoard[1] == computerMark)
-						|| (gameBoard[6] == computerMark && gameBoard[9] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[7] == computerMark))
-					position = i;
-			}
-			if (i == 4) {
-				if ((gameBoard[1] == computerMark && gameBoard[7] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[6] == computerMark))
-					position = i;
-			}
-			if (i == 5) {
-				if ((gameBoard[1] == computerMark && gameBoard[9] == computerMark)
-						|| (gameBoard[3] == computerMark && gameBoard[7] == computerMark)
-						|| (gameBoard[2] == computerMark && gameBoard[8] == computerMark)
-						|| (gameBoard[4] == computerMark && gameBoard[6] == computerMark))
-					position = i;
-			}
-			if (i == 6) {
-				if ((gameBoard[3] == computerMark && gameBoard[9] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[4] == computerMark))
-					position = i;
-			}
-			if (i == 7) {
-				if ((gameBoard[1] == computerMark && gameBoard[4] == computerMark)
-						|| (gameBoard[9] == computerMark && gameBoard[8] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[3] == computerMark))
-					position = i;
-			}
-			if (i == 8) {
-				if ((gameBoard[2] == computerMark && gameBoard[5] == computerMark)
-						|| (gameBoard[7] == computerMark && gameBoard[9] == computerMark))
-					position = i;
-			}
-			if (i == 9) {
-				if ((gameBoard[7] == computerMark && gameBoard[8] == computerMark)
-						|| (gameBoard[3] == computerMark && gameBoard[6] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[1] == computerMark))
-					position = i;
-			} else
-				position = 0;
-		}
+		int position = winPosition(computerMark);
 		if (position != 0) {
 			System.out.println("Computer position at:" + position);
 			gameBoard[position] = computerMark;
@@ -175,5 +121,29 @@ public class TicTacToe {
 				}
 			}
 		}
+	}
+
+	public static int winPosition(char Mark) {
+
+		int position = 0;
+		for (int i = 1; i < gameBoard.length && gameBoard[i] == ' '; i++) {
+			boolean win = false;
+			gameBoard[i] = Mark;
+			win = win(Mark);
+			if (win == true) {
+				gameBoard[i] = ' ';
+				return i;
+			}
+		}
+		return position;
+	}
+
+	// UC9 Block Opponent Move
+	public static int blockOpponent(char Mark) {
+		int position = winPosition(Mark);
+		if (position != 0) {
+			gameBoard[position] = (Mark == 'X') ? 'O' : 'X';
+		}
+		return position;
 	}
 }
