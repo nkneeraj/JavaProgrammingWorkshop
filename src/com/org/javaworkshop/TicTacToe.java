@@ -105,61 +105,7 @@ public class TicTacToe {
 
 	// UC8 Computer Move
 	public static void computerMove() {
-		int position = 0;
-		for (int i = 1; i < gameBoard.length && gameBoard[i] == ' '; i++) {
-			if (i == 1) {
-				if ((gameBoard[2] == computerMark && gameBoard[3] == computerMark)
-						|| (gameBoard[4] == computerMark && gameBoard[7] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[9] == computerMark))
-					position = i;
-			}
-			if (i == 2) {
-				if ((gameBoard[1] == computerMark && gameBoard[3] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[8] == computerMark))
-					position = i;
-			}
-			if (i == 3) {
-				if ((gameBoard[2] == computerMark && gameBoard[1] == computerMark)
-						|| (gameBoard[6] == computerMark && gameBoard[9] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[7] == computerMark))
-					position = i;
-			}
-			if (i == 4) {
-				if ((gameBoard[1] == computerMark && gameBoard[7] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[6] == computerMark))
-					position = i;
-			}
-			if (i == 5) {
-				if ((gameBoard[1] == computerMark && gameBoard[9] == computerMark)
-						|| (gameBoard[3] == computerMark && gameBoard[7] == computerMark)
-						|| (gameBoard[2] == computerMark && gameBoard[8] == computerMark)
-						|| (gameBoard[4] == computerMark && gameBoard[6] == computerMark))
-					position = i;
-			}
-			if (i == 6) {
-				if ((gameBoard[3] == computerMark && gameBoard[9] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[4] == computerMark))
-					position = i;
-			}
-			if (i == 7) {
-				if ((gameBoard[1] == computerMark && gameBoard[4] == computerMark)
-						|| (gameBoard[9] == computerMark && gameBoard[8] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[3] == computerMark))
-					position = i;
-			}
-			if (i == 8) {
-				if ((gameBoard[2] == computerMark && gameBoard[5] == computerMark)
-						|| (gameBoard[7] == computerMark && gameBoard[9] == computerMark))
-					position = i;
-			}
-			if (i == 9) {
-				if ((gameBoard[7] == computerMark && gameBoard[8] == computerMark)
-						|| (gameBoard[3] == computerMark && gameBoard[6] == computerMark)
-						|| (gameBoard[5] == computerMark && gameBoard[1] == computerMark))
-					position = i;
-			} else
-				position = 0;
-		}
+		int position = 
 		if (position != 0) {
 			System.out.println("Computer position at:" + position);
 			gameBoard[position] = computerMark;
@@ -175,5 +121,57 @@ public class TicTacToe {
 				}
 			}
 		}
+	}
+
+	public int winPosition(char Mark) {
+
+		int position = 0;
+		for (int i = 1; i < gameBoard.length && gameBoard[i] == ' '; i++) {
+			if (i == 1) {
+				if ((gameBoard[2] == Mark && gameBoard[3] == Mark) || (gameBoard[4] == Mark && gameBoard[7] == Mark)
+						|| (gameBoard[5] == Mark && gameBoard[9] == Mark))
+					position = i;
+			}
+			if (i == 2) {
+				if ((gameBoard[1] == Mark && gameBoard[3] == Mark) || (gameBoard[5] == Mark && gameBoard[8] == Mark))
+					position = i;
+			}
+			if (i == 3) {
+				if ((gameBoard[2] == Mark && gameBoard[1] == Mark) || (gameBoard[6] == Mark && gameBoard[9] == Mark)
+						|| (gameBoard[5] == Mark && gameBoard[7] == Mark))
+					position = i;
+			}
+			if (i == 4) {
+				if ((gameBoard[1] == Mark && gameBoard[7] == Mark) || (gameBoard[5] == Mark && gameBoard[6] == Mark))
+					position = i;
+			}
+			if (i == 5) {
+				if ((gameBoard[1] == Mark && gameBoard[9] == Mark) || (gameBoard[3] == Mark && gameBoard[7] == Mark)
+						|| (gameBoard[2] == Mark && gameBoard[8] == Mark)
+						|| (gameBoard[4] == Mark && gameBoard[6] == Mark))
+					position = i;
+			}
+			if (i == 6) {
+				if ((gameBoard[3] == Mark && gameBoard[9] == Mark) || (gameBoard[5] == Mark && gameBoard[4] == Mark))
+					position = i;
+			}
+			if (i == 7) {
+				if ((gameBoard[1] == Mark && gameBoard[4] == Mark) || (gameBoard[9] == Mark && gameBoard[8] == Mark)
+						|| (gameBoard[5] == Mark && gameBoard[3] == Mark))
+					position = i;
+			}
+			if (i == 8) {
+				if ((gameBoard[2] == Mark && gameBoard[5] == Mark) || (gameBoard[7] == Mark && gameBoard[9] == Mark))
+					position = i;
+			}
+			if (i == 9) {
+				if ((gameBoard[7] == Mark && gameBoard[8] == Mark) || (gameBoard[3] == Mark && gameBoard[6] == Mark)
+						|| (gameBoard[5] == Mark && gameBoard[1] == Mark))
+					position = i;
+			} else
+				position = 0;
+
+		}
+		return position;
 	}
 }
