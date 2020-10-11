@@ -161,4 +161,21 @@ public class TicTacToe {
 		}
 		return 0;
 	}
+	
+	//UC11 if corners not available then take sides.
+	public static int sidePosition()
+	{
+		if(cornerPosition()==0)
+		{
+			if (gameBoard[2] == ' ')
+				return (int)2;
+			else if (gameBoard[4] == ' ')
+				return (int)4;
+			else if (gameBoard[6] == ' ')
+				return (int) 6;
+			else if (gameBoard[8] == ' ')
+				return (int) 8;
+		}
+		return 0;
+	}
 }
