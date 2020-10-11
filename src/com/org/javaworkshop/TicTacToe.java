@@ -117,6 +117,7 @@ public class TicTacToe {
 	// UC8 Computer Move
 	public static void computerMove() {
 		int position = winPosition(computerMark);
+		System.out.println("win pos" + position);
 		if (position != 0) {
 			System.out.println("Computer position at:" + position);
 			gameBoard[position] = computerMark;
@@ -160,18 +161,21 @@ public class TicTacToe {
 
 	public static int winPosition(char Mark) {
 
-		int position = 0;
-		for (int i = 1; i < gameBoard.length && gameBoard[i] == ' '; i++) {
-			gameBoard[i] = Mark;
-			if (win(Mark)==true) {
-				gameBoard[i] = ' ';
-				System.out.println("Win pos"+i);
-				position = i;
-				return i;
-			} else
-				gameBoard[i] = ' ';
+		int pos = 0;
+		System.out.println("win position");
+		for (int i = 1; i < gameBoard.length; i++) {
+			if (gameBoard[i] == ' ') {
+				gameBoard[i] = Mark;
+				if (win(Mark) == true) {
+					gameBoard[i] = ' ';
+					System.out.println("Win pos" + i);
+					pos = i;
+					return i;
+				} else
+					gameBoard[i] = ' ';
+			}
 		}
-		return position;
+		return pos;
 	}
 
 	// UC9 Block Opponent Move
