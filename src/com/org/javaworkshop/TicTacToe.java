@@ -12,8 +12,16 @@ public class TicTacToe {
 	// master
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe Game");
-		gameBoard = createBoard();
-		toss();
+		System.out.println("Enter 1 to play a game");
+		System.out.println("Enter 2 exit");
+		int input = sc.nextInt();
+		while (input != 2) {
+			gameBoard = createBoard();
+			toss();
+			System.out.println("Enter 1 to play a game");
+			System.out.println("Enter 2 exit");
+			input = sc.nextInt();
+		}
 	}
 
 	// UC1
@@ -85,8 +93,6 @@ public class TicTacToe {
 			sc.nextLine();
 			playerMove(pos);
 		}
-		System.out.println("Player Mark: " + playerMark);
-		System.out.println("Computer mark: " + computerMark);
 	}
 
 	// UC7 Win
@@ -162,13 +168,11 @@ public class TicTacToe {
 	public static int winPosition(char Mark) {
 
 		int pos = 0;
-		System.out.println("win position");
 		for (int i = 1; i < gameBoard.length; i++) {
 			if (gameBoard[i] == ' ') {
 				gameBoard[i] = Mark;
 				if (win(Mark) == true) {
 					gameBoard[i] = ' ';
-					System.out.println("Win pos" + i);
 					pos = i;
 					return i;
 				} else
