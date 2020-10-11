@@ -8,26 +8,12 @@ public class TicTacToe {
 	private static char playerMark;
 	private static char computerMark;
 	private static char[] gameBoard;
-	private static int position;
 
 	// master
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe Game");
 		gameBoard = createBoard();
-
 		toss();
-//		System.out.println("Enter player Mark");
-//		playerMark = playerMark();
-//		computerMark = (playerMark == 'X') ? 'O' : 'X';
-//		System.out.println("Player Mark: " + playerMark);
-//		System.out.println("Computer mark: " + computerMark);
-
-		showBoard(gameBoard);
-
-		position = sc.nextInt();
-		playerMove(position);
-		computerMove();
-		showBoard(gameBoard);
 	}
 
 	// UC1
@@ -57,16 +43,22 @@ public class TicTacToe {
 	}
 
 	// UC4 & UC5
-	public static void playerMove(int pos) {
-		if (position < 1 && position > 9 && gameBoard[position] != ' ') {
+	public static void playerMove(int position) {
+		if (position < 1 || position > 9 || gameBoard[position] != ' ') {
 			System.out.println("Invalid position, enter again ");
 			position = sc.nextInt();
+			sc.nextLine();
 			playerMove(position);
 		} else {
 			gameBoard[position] = playerMark;
 			System.out.println("valid user position");
 			showBoard(gameBoard);
-			win(playerMark);
+			if (win(playerMark)) {
+				System.out.println("Player won");
+				return;
+			}
+
+			computerMove();
 		}
 //		return position;
 	}
@@ -79,10 +71,19 @@ public class TicTacToe {
 			System.out.println("Computer Start");
 			playerMark = playerMark();
 			computerMark = (playerMark == 'X') ? 'O' : 'X';
+			System.out.println("Player Mark: " + playerMark);
+			System.out.println("Computer mark: " + computerMark);
+			computerMove();
 		} else {
 			System.out.println("Player Start");
 			playerMark = playerMark();
 			computerMark = (playerMark == 'X') ? 'O' : 'X';
+			System.out.println("Player Mark: " + playerMark);
+			System.out.println("Computer mark: " + computerMark);
+			System.out.println("Player turn, enter position:");
+			int pos = sc.nextInt();
+			sc.nextLine();
+			playerMove(pos);
 		}
 		System.out.println("Player Mark: " + playerMark);
 		System.out.println("Computer mark: " + computerMark);
@@ -97,10 +98,20 @@ public class TicTacToe {
 				|| gameBoard[2] == gameBoard[5] && gameBoard[2] == gameBoard[8] && gameBoard[2] == Mark
 				|| gameBoard[3] == gameBoard[6] && gameBoard[9] == gameBoard[3] && gameBoard[3] == Mark
 				|| gameBoard[1] == gameBoard[5] && gameBoard[1] == gameBoard[9] && gameBoard[1] == Mark
-				|| gameBoard[3] == gameBoard[5] && gameBoard[9] == gameBoard[3] && gameBoard[3] == Mark) {
+				|| gameBoard[3] == gameBoard[5] && gameBoard[7] == gameBoard[3] && gameBoard[3] == Mark) {
+			System.out.println(Mark + "Won");
 			return true;
-		} else
-			return false;
+		} else if (gameBoard[1] == gameBoard[2] && gameBoard[1] == gameBoard[3] && gameBoard[1] != ' '
+				|| gameBoard[4] == gameBoard[5] && gameBoard[4] == gameBoard[6] && gameBoard[4] != ' '
+				|| gameBoard[7] == gameBoard[8] && gameBoard[7] == gameBoard[9] && gameBoard[7] != ' '
+				|| gameBoard[1] == gameBoard[4] && gameBoard[1] == gameBoard[7] && gameBoard[1] != ' '
+				|| gameBoard[2] == gameBoard[5] && gameBoard[2] == gameBoard[8] && gameBoard[2] != ' '
+				|| gameBoard[3] == gameBoard[6] && gameBoard[9] == gameBoard[3] && gameBoard[3] != ' '
+				|| gameBoard[1] == gameBoard[5] && gameBoard[1] == gameBoard[9] && gameBoard[1] != ' '
+				|| gameBoard[3] == gameBoard[5] && gameBoard[7] == gameBoard[3] && gameBoard[3] != ' ') {
+			System.out.println("Tie");
+		}
+		return false;
 	}
 
 	// UC8 Computer Move
@@ -109,17 +120,41 @@ public class TicTacToe {
 		if (position != 0) {
 			System.out.println("Computer position at:" + position);
 			gameBoard[position] = computerMark;
-		} else {
-			System.out.println("No winning position, picking random value.");
-			int random = (int) (Math.random() * 10) % 9 + 1;
-			int marked = 0;
-			while (marked == 0) {
-				if (gameBoard[random] == ' ') {
-					gameBoard[random] = computerMark;
-					marked = 1;
-					showBoard(gameBoard);
-				}
+			System.out.println("Computer won");
+			return;
+		} else if (winPosition(playerMark) != 0) {
+			gameBoard[winPosition(playerMark)] = computerMark;
+			showBoard(gameBoard);
+			if (win(computerMark)) {
+				System.out.println("Computer won");
+				return;
 			}
+			System.out.println("Player turn, enter position");
+			int pos = sc.nextInt();
+			sc.nextLine();
+			playerMove(pos);
+		} else if (cornerPosition() != 0) {
+			gameBoard[cornerPosition()] = computerMark;
+			showBoard(gameBoard);
+			if (win(computerMark)) {
+				System.out.println("Computer won");
+				return;
+			}
+			System.out.println("Player turn, enter position");
+			int pos = sc.nextInt();
+			sc.nextLine();
+			playerMove(pos);
+		} else if (sidePosition() != 0) {
+			gameBoard[sidePosition()] = computerMark;
+			showBoard(gameBoard);
+			if (win(computerMark)) {
+				System.out.println("Computer won");
+				return;
+			}
+			System.out.println("Player turn, enter position");
+			int pos = sc.nextInt();
+			sc.nextLine();
+			playerMove(pos);
 		}
 	}
 
@@ -127,13 +162,14 @@ public class TicTacToe {
 
 		int position = 0;
 		for (int i = 1; i < gameBoard.length && gameBoard[i] == ' '; i++) {
-			boolean win = false;
 			gameBoard[i] = Mark;
-			win = win(Mark);
-			if (win == true) {
+			if (win(Mark)==true) {
 				gameBoard[i] = ' ';
+				System.out.println("Win pos"+i);
+				position = i;
 				return i;
-			}
+			} else
+				gameBoard[i] = ' ';
 		}
 		return position;
 	}
@@ -161,20 +197,17 @@ public class TicTacToe {
 		}
 		return 0;
 	}
-	
 
-	//UC11 if corners not available then take centre and then sides.
-	public static int sidePosition()
-	{
-		
-		if(cornerPosition()==0)
-		{
-			if(gameBoard[5]==' ')
-				return (int)5;
+	// UC11 if corners not available then take centre and then sides.
+	public static int sidePosition() {
+
+		if (cornerPosition() == 0) {
+			if (gameBoard[5] == ' ')
+				return (int) 5;
 			if (gameBoard[2] == ' ')
-				return (int)2;
+				return (int) 2;
 			else if (gameBoard[4] == ' ')
-				return (int)4;
+				return (int) 4;
 			else if (gameBoard[6] == ' ')
 				return (int) 6;
 			else if (gameBoard[8] == ' ')
