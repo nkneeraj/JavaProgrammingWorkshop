@@ -105,7 +105,7 @@ public class TicTacToe {
 
 	// UC8 Computer Move
 	public static void computerMove() {
-		int position = 
+		int position = winPosition(computerMark);
 		if (position != 0) {
 			System.out.println("Computer position at:" + position);
 			gameBoard[position] = computerMark;
@@ -123,54 +123,26 @@ public class TicTacToe {
 		}
 	}
 
-	public int winPosition(char Mark) {
+	public static int winPosition(char Mark) {
 
 		int position = 0;
 		for (int i = 1; i < gameBoard.length && gameBoard[i] == ' '; i++) {
-			if (i == 1) {
-				if ((gameBoard[2] == Mark && gameBoard[3] == Mark) || (gameBoard[4] == Mark && gameBoard[7] == Mark)
-						|| (gameBoard[5] == Mark && gameBoard[9] == Mark))
-					position = i;
+			boolean win = false;
+			gameBoard[i] = Mark;
+			win = win(Mark);
+			if (win == true) {
+				gameBoard[i] = ' ';
+				return i;
 			}
-			if (i == 2) {
-				if ((gameBoard[1] == Mark && gameBoard[3] == Mark) || (gameBoard[5] == Mark && gameBoard[8] == Mark))
-					position = i;
-			}
-			if (i == 3) {
-				if ((gameBoard[2] == Mark && gameBoard[1] == Mark) || (gameBoard[6] == Mark && gameBoard[9] == Mark)
-						|| (gameBoard[5] == Mark && gameBoard[7] == Mark))
-					position = i;
-			}
-			if (i == 4) {
-				if ((gameBoard[1] == Mark && gameBoard[7] == Mark) || (gameBoard[5] == Mark && gameBoard[6] == Mark))
-					position = i;
-			}
-			if (i == 5) {
-				if ((gameBoard[1] == Mark && gameBoard[9] == Mark) || (gameBoard[3] == Mark && gameBoard[7] == Mark)
-						|| (gameBoard[2] == Mark && gameBoard[8] == Mark)
-						|| (gameBoard[4] == Mark && gameBoard[6] == Mark))
-					position = i;
-			}
-			if (i == 6) {
-				if ((gameBoard[3] == Mark && gameBoard[9] == Mark) || (gameBoard[5] == Mark && gameBoard[4] == Mark))
-					position = i;
-			}
-			if (i == 7) {
-				if ((gameBoard[1] == Mark && gameBoard[4] == Mark) || (gameBoard[9] == Mark && gameBoard[8] == Mark)
-						|| (gameBoard[5] == Mark && gameBoard[3] == Mark))
-					position = i;
-			}
-			if (i == 8) {
-				if ((gameBoard[2] == Mark && gameBoard[5] == Mark) || (gameBoard[7] == Mark && gameBoard[9] == Mark))
-					position = i;
-			}
-			if (i == 9) {
-				if ((gameBoard[7] == Mark && gameBoard[8] == Mark) || (gameBoard[3] == Mark && gameBoard[6] == Mark)
-						|| (gameBoard[5] == Mark && gameBoard[1] == Mark))
-					position = i;
-			} else
-				position = 0;
+		}
+		return position;
+	}
 
+	// UC9 Block Opponent Move
+	public static int blockOpponent(char Mark) {
+		int position = winPosition(Mark);
+		if (position != 0) {
+			gameBoard[position] = (Mark == 'X') ? 'O' : 'X';
 		}
 		return position;
 	}
